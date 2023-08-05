@@ -14,8 +14,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>18</maven.compiler.source>
-    <maven.compiler.target>18</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <aspectj.version>1.8.13</aspectj.version>
     <allure.version>2.21.0</allure.version>
     <allure-maven.version>2.10.0</allure-maven.version>
@@ -113,6 +113,7 @@
             <property>
               <name>junit.jupiter.extensions.autodetection.enabled</name>
               <value>true</value>
+              <value>D:\web_final_gb\allure-results</value>
             </property>
           </systemProperties>
         </configuration>
@@ -134,7 +135,7 @@
         <artifactId>allure-maven</artifactId>
         <version> ${allure-maven.version} </version>
         <configuration>
-          <buildDirectory>D:\projects_java\5.0_final_task_gb_Web\web_final_gb</buildDirectory>
+          <buildDirectory>D:\web_final_gb</buildDirectory>
           <reportVersion>${allure.version}</reportVersion>
           <!-- <reportVersion>2.14.0</reportVersion>-->
         </configuration>
