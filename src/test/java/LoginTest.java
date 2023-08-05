@@ -13,8 +13,7 @@ public class LoginTest extends AbstractTest{
 
         Thread.sleep(2000);
         Assertions.assertEquals(allElementsPage.getBaseUrl(), getDriver().getCurrentUrl());
-        //Assertions.assertDoesNotThrow(() -> getDriver().findElement(By.xpath(".//a[text()='skachok']")));
-        Assertions.assertDoesNotThrow(() -> allElementsPage.getCheckUserLogin());
+        Assertions.assertDoesNotThrow(allElementsPage::getCheckUserLogin);
 
         allElementsPage.logout();
     }
@@ -22,10 +21,13 @@ public class LoginTest extends AbstractTest{
     @Test
     @Order(2)
     void badLoginTest() throws InterruptedException {
-        allElementsPage.badLogin();
+        allElementsPage.badLogin()
+                       .getError401Text();
 
         Thread.sleep(2000);
-        Assertions.assertDoesNotThrow(() -> allElementsPage.getError401Text());
+
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
     }
 
     @Test
@@ -36,16 +38,74 @@ public class LoginTest extends AbstractTest{
         allElementsPage.simplePswd(allElementsPage.getPassword());
 
         Thread.sleep(2000);
-        Assertions.assertDoesNotThrow(() -> allElementsPage.getError401Text());
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     void moreLoginOptionsBadPassword() throws InterruptedException {
         allElementsPage.simpleLogin(allElementsPage.getLogin());
         allElementsPage.simplePswd(allElementsPage.getPassword()+"S");
 
         Thread.sleep(2000);
-        Assertions.assertDoesNotThrow(() -> allElementsPage.getError401Text());
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
+    }
+
+    // mlo - moreLoginOptions
+    @Test
+    @Order(5)
+    void mloLoginLessThenThreeSimbols() throws InterruptedException {
+        allElementsPage.simpleLogin("cc");
+        allElementsPage.simplePswd("e0323a9039");
+
+        Thread.sleep(2000);
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
+    }
+
+    @Test
+    @Order(6)
+    void mloLoginMoreThen20Simbols() throws InterruptedException {
+        allElementsPage.simpleLogin("manymanymanymanymanymany");
+        allElementsPage.simplePswd("132586c658");
+
+        Thread.sleep(2000);
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
+    }
+
+    @Test
+    @Order(7)
+    void mloLoginRussianSimbols() throws InterruptedException {
+        allElementsPage.simpleLogin("ыфвфывфв");
+        allElementsPage.simplePswd("ec65620371");
+
+        Thread.sleep(2000);
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
+    }
+
+    @Test
+    @Order(8)
+    void mloEmptyLoginPassword() throws InterruptedException {
+        allElementsPage.simpleLogin("");
+        allElementsPage.simplePswd("");
+
+        Thread.sleep(2000);
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
+    }
+
+    @Test
+    @Order(8)
+    void mloLoginSpecialSimpbols() throws InterruptedException {
+        allElementsPage.simpleLogin("33©");
+        allElementsPage.simplePswd("43ade729cf");
+
+        Thread.sleep(2000);
+        Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
+        Assertions.assertEquals("401", allElementsPage.getError401Text());
     }
 }

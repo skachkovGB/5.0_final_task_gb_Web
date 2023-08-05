@@ -1,9 +1,6 @@
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-
 
 public class AllElementsPage extends AbstractPage {
 
@@ -35,8 +32,8 @@ public class AllElementsPage extends AbstractPage {
     @FindBy(xpath = ".//span[text()='Logout']")
     private WebElement logoutBtn;
 
-
-
+    //===================================================================
+    //12) локаторы для постов
 
     public AllElementsPage correctLogin() {
         loginArea.clear();
@@ -76,8 +73,8 @@ public class AllElementsPage extends AbstractPage {
         return this;
     }
 
-    public WebElement getError401Text() {
-        return error401Text;
+    public String getError401Text() {
+        return error401Text.getText();
     }
 
     public AllElementsPage simpleLogin(String login){
@@ -102,9 +99,3 @@ public class AllElementsPage extends AbstractPage {
         return password;
     }
 }
-
-
-
-
-
-

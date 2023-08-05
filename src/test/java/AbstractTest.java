@@ -4,7 +4,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-
 import java.util.concurrent.TimeUnit;
 
 public class AbstractTest {
@@ -29,8 +28,8 @@ public class AbstractTest {
 
     @AfterAll
     static void closeAll(){
-        driver.close();
-        driver.quit();
+        //driver.close();
+        //driver.quit();
     }
 
     public static WebDriver getDriver() {
