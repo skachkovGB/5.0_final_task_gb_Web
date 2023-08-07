@@ -1,6 +1,9 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
+
+import java.util.List;
 
 public class AllElementsPage extends AbstractPage {
 
@@ -17,9 +20,11 @@ public class AllElementsPage extends AbstractPage {
     //1) локаторы для логина
     @FindBy(xpath = "//input[@type='text']")
     private WebElement loginArea;
+    //a[@href='/posts/*']
     @FindBy(xpath = "//input[@type='password']")
     private WebElement pswdArea;
-    @FindBy(xpath = "//span[.='Login']")
+    //@FindBy(xpath = "//span[.='Login']")
+    @FindBy(css = ".mdc-button__label")
     private WebElement loginBtn;
     @FindBy(xpath = ".//a[text()='skachok']")
     private WebElement checkUserLogin;
@@ -33,7 +38,24 @@ public class AllElementsPage extends AbstractPage {
     private WebElement logoutBtn;
 
     //===================================================================
-    //12) локаторы для постов
+    //2) локаторы для постов
+    @FindBy(xpath = "//div[@class='content']/div[*]/a[@href]")
+    private List<WebElement> posts;
+    @FindBy(xpath = "//a[text()='Next Page']")
+    private WebElement nextPageBth;
+    @FindBy(xpath = "//a[text()='Previous Page']")
+    private WebElement prevPageBth;
+    @FindBy(xpath = "//p[text()='No items for your filter']")
+    private WebElement noItems;
+    @FindBy(xpath = "//h2[text()='new11']")
+    private WebElement checkTitlePost;
+    @FindBy(xpath = "//div[text()='new11']")
+    private WebElement checkDescriptionPost;
+    @FindBy(xpath = "//div[@class='content']/div[*]/a/img[@src]")
+    private WebElement checkImgPost;
+    @FindBy(xpath = "//button[@id='create-btn']")
+    private WebElement createPostBtn;
+
 
     public AllElementsPage correctLogin() {
         loginArea.clear();
@@ -87,15 +109,62 @@ public class AllElementsPage extends AbstractPage {
         return login;
     }
 
-    public AllElementsPage simplePswd(String pswd){
+    public AllElementsPage simplePswd(String pswd) throws InterruptedException {
         pswdArea.clear();
         pswdArea.sendKeys(pswd);
-
+        Thread.sleep(1000);
         loginBtn.click();
         return this;
     }
 
     public static String getPassword() {
         return password;
+    }
+
+    //===================================================================
+    public List<WebElement> getPosts() {
+        return posts;
+    }
+    public AllElementsPage nextPageBtnClick(){
+        nextPageBth.click();
+        return this;
+    }
+    public AllElementsPage prevPageBtnClick(){
+        prevPageBth.click();
+        return this;
+    }
+
+    public AllElementsPage sleep(int n) throws InterruptedException {
+        Thread.sleep(1000*n);
+        return this;
+    }
+
+    public WebElement getNextPageBth() {
+        return nextPageBth;
+    }
+
+    public WebElement getPrevPageBth() {
+        return prevPageBth;
+    }
+
+    public WebElement getNoItems() {
+        return noItems;
+    }
+
+    public WebElement getCheckTitlePost() {
+        return checkTitlePost;
+    }
+
+    public WebElement getCheckDescriptionPost() {
+        return checkDescriptionPost;
+    }
+
+    public WebElement getCheckImgPost() {
+        return checkImgPost;
+    }
+
+    public AllElementsPage createPost() {
+        createPostBtn.click();
+        return this;
     }
 }

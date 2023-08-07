@@ -11,11 +11,12 @@ public class LoginTest extends AbstractTest{
     void loginTest() throws InterruptedException {
         allElementsPage.correctLogin();
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertEquals(allElementsPage.getBaseUrl(), getDriver().getCurrentUrl());
         Assertions.assertDoesNotThrow(allElementsPage::getCheckUserLogin);
 
         allElementsPage.logout();
+        Thread.sleep(1000);
     }
 
     @Test
@@ -24,10 +25,11 @@ public class LoginTest extends AbstractTest{
         allElementsPage.badLogin()
                        .getError401Text();
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
 
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
     }
 
     @Test
@@ -37,9 +39,10 @@ public class LoginTest extends AbstractTest{
         Thread.sleep(1000);
         allElementsPage.simplePswd(allElementsPage.getPassword());
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
     }
 
     @Test
@@ -48,9 +51,10 @@ public class LoginTest extends AbstractTest{
         allElementsPage.simpleLogin(allElementsPage.getLogin());
         allElementsPage.simplePswd(allElementsPage.getPassword()+"S");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);;
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
     }
 
     // mlo - moreLoginOptions
@@ -60,9 +64,12 @@ public class LoginTest extends AbstractTest{
         allElementsPage.simpleLogin("cc");
         allElementsPage.simplePswd("e0323a9039");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
+        allElementsPage.logout();
+        Thread.sleep(1000);
     }
 
     @Test
@@ -71,9 +78,12 @@ public class LoginTest extends AbstractTest{
         allElementsPage.simpleLogin("manymanymanymanymanymany");
         allElementsPage.simplePswd("132586c658");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
+        allElementsPage.logout();
+        Thread.sleep(1000);;
     }
 
     @Test
@@ -82,9 +92,12 @@ public class LoginTest extends AbstractTest{
         allElementsPage.simpleLogin("ыфвфывфв");
         allElementsPage.simplePswd("ec65620371");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
+        allElementsPage.logout();
+        Thread.sleep(1000);
     }
 
     @Test
@@ -93,19 +106,23 @@ public class LoginTest extends AbstractTest{
         allElementsPage.simpleLogin("");
         allElementsPage.simplePswd("");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
     }
 
     @Test
-    @Order(8)
+    @Order(9)
     void mloLoginSpecialSimpbols() throws InterruptedException {
         allElementsPage.simpleLogin("33©");
         allElementsPage.simplePswd("43ade729cf");
 
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         Assertions.assertDoesNotThrow(allElementsPage::getError401Text);
         Assertions.assertEquals("401", allElementsPage.getError401Text());
+        Thread.sleep(1000);
+        allElementsPage.logout();
+        Thread.sleep(1000);
     }
 }
